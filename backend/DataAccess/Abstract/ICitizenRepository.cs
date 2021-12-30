@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstracts
+namespace DataAccess.Abstract
 {
     public interface ICitizenRepository
     {
