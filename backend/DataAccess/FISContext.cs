@@ -10,14 +10,15 @@ namespace DataAccess
 {
     public class FISContext : DbContext
     {
-        public FISContext()
-        {
+        //public FISContext(DbContextOptions<FISContext> options)
+        //    : base(options)
+        //{
+            
+        //}
 
-        }
-        public FISContext(DbContextOptions<FISContext> options)
-            : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder ob)
         {
-
+            base.OnConfiguring(ob);
         }
 
         public DbSet<Citizen> Citizens { get; set; }
