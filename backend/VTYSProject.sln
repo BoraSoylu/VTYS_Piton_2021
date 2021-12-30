@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VTYS.Entities", "VTYS.Entities\VTYS.Entities.csproj", "{B9EA1DBC-617E-47C1-8CAB-267BF048563D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "VTYS.Entities\Entities.csproj", "{B9EA1DBC-617E-47C1-8CAB-267BF048563D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{27E3627F-1DA8-4A55-9895-61D72D2845F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{27E3627F-1DA8-4A55-9895-61D72D2845F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{B24CE219-AFA3-4236-A275-CF0EAE5614C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{B24CE219-AFA3-4236-A275-CF0EAE5614C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{4E5A8758-6CB1-4646-9267-ACE707852722}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{4E5A8758-6CB1-4646-9267-ACE707852722}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

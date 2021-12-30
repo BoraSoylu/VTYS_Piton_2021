@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VTYS.Entities
+namespace Entities
 {
     public class Citizen
     {
