@@ -14,12 +14,15 @@ namespace Entities
         [Required]
         [StringLength(30)]
         public string LastName { get; set; }
+        [Required]
         [StringLength(50)]
-
         public string Email { get; set; }
+        [StringLength(10)]
         public string PhoneNumber { get; set; }
         public string Gender { get; set; }
+        [Required]
         public DateTime BirthDate { get; set; }
+        [Required]
         public DateTime CreationDate { get; set; }
     }
 }

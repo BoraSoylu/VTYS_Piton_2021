@@ -21,13 +21,18 @@ namespace WebAPI.Controllers
             
         }
 
-        [HttpGet]
-        public Citizen Get()
+        [HttpGet("citizens/{id}")]
+        public Citizen Get(int id)
         {
-            var result = citizenService.GetbyID(1);
+            var result = citizenService.GetbyID(id);
             //if (result.Success)
                 return result.Data;
-
+        }
+        [HttpGet("citizens")]
+        public List<Citizen> GetAll()
+        {
+            var result = citizenService.GetAll();
+            return result.Data;
         }
     }
 }

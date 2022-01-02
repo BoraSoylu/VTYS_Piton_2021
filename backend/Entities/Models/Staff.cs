@@ -19,6 +19,7 @@ namespace Entities
         [StringLength(30)]
         public string LastName { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Email { get; set; }
 

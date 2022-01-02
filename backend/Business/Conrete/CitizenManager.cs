@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Business.Abstract;
 using Business.Utilities.Results;
 using DataAccess;
@@ -15,10 +16,18 @@ namespace Business.Conrete
             this.citizenDAL = citizenDAL;
         }
 
+        public IDataResult<List<Citizen>> GetAll()
+        {
+            return new DataResults.SuccessfulDataResult<List<Citizen>>(
+                this.citizenDAL.GetAll(null));
+        }
+
         public IDataResult<Citizen> GetbyID(int id)
         {
             return new DataResults.SuccessfulDataResult<Citizen>(
                 this.citizenDAL.Get(citizen => citizen.CitizenID == id));
         }
+
+        
     }
 }
