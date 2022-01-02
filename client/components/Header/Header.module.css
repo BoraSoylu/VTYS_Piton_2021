@@ -1,0 +1,14 @@
+.header_container {
+    background: #3e4444;
+    height: 100px;
+}
+
+.nav_container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: red;
+    padding: 10px;
+}
