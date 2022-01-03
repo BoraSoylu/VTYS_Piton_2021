@@ -27,13 +27,14 @@ namespace DataAccess
                 return context.Set<TEntity>().SingleOrDefault(filter);
             }
         }
-        public void Insert(TEntity entity)
+        public TEntity Insert(TEntity entity)
         {
             using (var context = new TContext())
             {
                 var insertedEntity = context.Entry(entity);
                 insertedEntity.State = EntityState.Added;
                 context.SaveChanges();
+                return entity;
             }
         }
         public void Update(TEntity entity)

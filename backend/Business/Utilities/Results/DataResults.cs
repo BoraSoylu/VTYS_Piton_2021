@@ -39,6 +39,10 @@ namespace Business.Utilities.Results
             {
 
             }
+            public ErrorDataResult(string infoMessage) : base(default, false, infoMessage)
+            {
+
+            }
         }
     }
 }

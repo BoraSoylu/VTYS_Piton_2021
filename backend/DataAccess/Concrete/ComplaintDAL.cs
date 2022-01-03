@@ -1,7 +1,7 @@
 ﻿using Entities;
 using System;
 
-namespace DataAccess.Concrete
+namespace DataAccess
 {
     public class ComplaintDAL : EntityRepository<Complaint, SPCDBContext>, IComplaintDAL
     {
