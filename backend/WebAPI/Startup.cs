@@ -45,8 +45,8 @@ namespace WebAPI
             services.AddScoped<IComplaintService, ComplaintManager>();
             services.AddScoped<IComplaintTypeDAL, ComplaintTypeDAL>();
             services.AddScoped<IComplaintTypeService, ComplaintTypeManager>();
-
             services.AddScoped<Business.Utilities.TokenHandler>();
+            services.AddCors();
             
 
 
@@ -82,7 +82,7 @@ namespace WebAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
