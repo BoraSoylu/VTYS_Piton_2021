@@ -11,7 +11,7 @@ const Register = () => {
 
   useEffect(() => {
     const signIn = async () => {
-      const response = await fetch("https://localhost:3000/api/auth/citizens/login", {
+      const response = await fetch("http://localhost:5000/api/auth/citizens/login", {
         method: "POST",
         body: JSON.stringify({
           email: "hs@gmail.com",
