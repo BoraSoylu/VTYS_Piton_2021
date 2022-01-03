@@ -4,10 +4,8 @@ const Header = () => {
     return (
         <header className={styles.header_container}>
             <nav className={styles.nav_container}>
-               <div>item</div>
-               <div>item</div>
-               <div>item</div>
-               <div>item</div>
+               <h1 className={styles.headerTitle}>ZABITA TAKİP SİSTEMİ</h1>
+               <img className={styles.logo} src='policeman.png' />
             </nav>
         </header>
     )
