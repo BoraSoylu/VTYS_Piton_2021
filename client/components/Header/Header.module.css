@@ -2,6 +2,13 @@
 
 .header_container {
   height: 100px;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    137deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(121, 9, 117, 1) 44%,
+    rgba(78, 0, 255, 0.9634783434650456) 100%
+  );
 }
 
 .nav_container {
@@ -11,13 +18,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    137deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(121, 9, 117, 1) 44%,
-    rgba(78, 0, 255, 0.9634783434650456) 100%
-  );
+  
 }
 
 .headerTitle {
