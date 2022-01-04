@@ -35,6 +35,16 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder => builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                .AllowAnyOrigin());
+            });
+
             services.AddScoped<ICitizenAuthDAL, CitizenAuthenticationDAL>();
             services.AddScoped<ICitizenService, CitizenManager>();
             services.AddScoped<ICitizenDAL, CitizenDAL>();
@@ -46,7 +56,7 @@ namespace WebAPI
             services.AddScoped<IComplaintTypeDAL, ComplaintTypeDAL>();
             services.AddScoped<IComplaintTypeService, ComplaintTypeManager>();
             services.AddScoped<Business.Utilities.TokenHandler>();
-            services.AddCors();
+            
             
 
 
@@ -76,13 +86,14 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
