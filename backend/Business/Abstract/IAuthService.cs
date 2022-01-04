@@ -1,6 +1,7 @@
 ﻿using Business.Utilities;
 using Business.Utilities.Results;
 using Entities;
+using Entities.DTOs;
 using System;
 
 namespace Business.Abstract
@@ -8,10 +9,11 @@ namespace Business.Abstract
     public interface IAuthService
     {
         IDataResult<Token> CreateToken(Citizen citizen);
-        IDataResult<Citizen> RegisterCitizen(CitizenRegisterDTO citizenRegister);
-        IDataResult<Citizen> LoginCitizen(CitizenLoginDTO citizenLogin);
-        IDataResult<Staff> RegisterStaff();
-        IDataResult<Staff> LoginStaff();
+        IDataResult<Token> CreateToken(StaffAuthDTO staff);
+        IDataResult<Citizen> RegisterCitizen(RegisterDTO citizenRegister);
+        IDataResult<Citizen> LoginCitizen(LoginDTO citizenLogin);
+        IDataResult<Staff> RegisterStaff(RegisterDTO newStaff);
+        IDataResult<StaffAuthDTO> LoginStaff(LoginDTO staffLogin);
 
 
 

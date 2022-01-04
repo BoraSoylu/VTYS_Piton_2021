@@ -11,24 +11,25 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComplaintTypesController : ControllerBase
+    public class StaffsController : ControllerBase
     {
-        private readonly IComplaintTypeService complaintTypeService;
+        private readonly IStaffService staffService;
 
-        public ComplaintTypesController(IComplaintTypeService complaintTypeService)
+        public StaffsController(IStaffService staffService)
         {
-            this.complaintTypeService = complaintTypeService;
+            this.staffService = staffService;
         }
 
-        [HttpGet("getall")]
-        public IActionResult GetAll()
+        [HttpGet("alldata"), Authorize(Roles = "Citizen")]
+        public IActionResult GetAllStaffs()
         {
-            var result = this.complaintTypeService.GetAllComplaintTypes();
+            var result = this.staffService.GetAll();
             if (result.Success)
                 return Ok(result);
             else
-                return BadRequest();
+                return BadRequest(result);
         }
+
 
 
     }

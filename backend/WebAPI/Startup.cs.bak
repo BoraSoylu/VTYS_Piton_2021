@@ -24,26 +24,17 @@ namespace WebAPI
 {
     public class Startup
     {
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
         public IConfiguration Configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder => builder
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                .AllowAnyOrigin());
-            });
-
             services.AddScoped<ICitizenAuthDAL, CitizenAuthenticationDAL>();
             services.AddScoped<ICitizenService, CitizenManager>();
             services.AddScoped<ICitizenDAL, CitizenDAL>();
@@ -54,9 +45,9 @@ namespace WebAPI
             services.AddScoped<IComplaintService, ComplaintManager>();
             services.AddScoped<IComplaintTypeDAL, ComplaintTypeDAL>();
             services.AddScoped<IComplaintTypeService, ComplaintTypeManager>();
-            services.AddScoped<IAuthorizationService, AuthorizationManager>();
-            services.AddScoped<IAuthorizationDAL, AuthorizationDAL>();
+
             services.AddScoped<Business.Utilities.TokenHandler>();
+            
 
 
             services.AddHttpContextAccessor();
@@ -85,13 +76,13 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
             app.UseHttpsRedirection();
+
             app.UseRouting();
-            app.UseCors();
+
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

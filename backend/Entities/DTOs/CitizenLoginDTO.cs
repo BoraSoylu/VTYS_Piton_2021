@@ -2,7 +2,7 @@
 
 namespace Entities
 {
-    public class CitizenLoginDTO : IDTO
+    public class LoginDTO : IDTO
     {
         public string Email { get; set; }
         public string Password { get; set; }

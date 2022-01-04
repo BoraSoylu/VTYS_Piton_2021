@@ -2,6 +2,8 @@
 using Business.Conrete;
 using Business.Utilities.Results;
 using Entities;
+using Entities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,17 +25,24 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpPost("register")]
-        public IActionResult CitizenRegister([FromBody] CitizenRegisterDTO dto)
+        [HttpPost("citizens/register")]
+        public IActionResult CitizenRegister([FromBody] RegisterDTO dto)
         {
             var result = authenticationService.RegisterCitizen(dto);
-            
-            return Ok(result.Data.CitizenID);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
+        [HttpPost("staffs/register"), Authorize(Roles = "admin")]
+        public IActionResult StaffRegister(RegisterDTO dto)
+        {
+            return Ok();
         }
 
 
         [HttpPost("citizens/login")]
-        public ActionResult<string> CitizenLogin(CitizenLoginDTO citizenLogin)
+        public ActionResult<string> CitizenLogin(LoginDTO citizenLogin)
         {
             IDataResult<Citizen> clogin = authenticationService.LoginCitizen(citizenLogin);
 
@@ -47,6 +56,19 @@ namespace WebAPI.Controllers
             return BadRequest(result.InfoMessage);
         }
 
+        [HttpPost("staffs/login")]
+        public IActionResult StaffLogin(LoginDTO staffLogin)
+        {
+            var login = this.authenticationService.LoginStaff(staffLogin);
+
+            if (!login.Success)
+                return BadRequest(login.InfoMessage);
+
+            var result = this.authenticationService.CreateToken(login.Data);
+
+            return Ok(result);
+
+        }
 
 
     }

@@ -2,7 +2,7 @@
 
 namespace Entities
 {
-    public class CitizenRegisterDTO : IDTO
+    public class RegisterDTO : IDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -17,14 +17,61 @@ namespace WebAPI.Controllers
     public class HomeController : ControllerBase
     {
         private readonly ICitizenService citizenService;
+        private readonly Business.Abstract.IAuthorizationService authorizationService;
+        
 
-        public HomeController(ICitizenService service)
+        public HomeController(ICitizenService service, Business.Abstract.IAuthorizationService authorizationService)
         {
             citizenService = service;
+            this.authorizationService = authorizationService;
         }
 
         //Prepared methods
+        #region Authorizations
+        [HttpGet("auths/alldata"), Authorize(Roles = "Citizen")]
+        public IActionResult GetAllAuthorizations()
+        {
+            var result = this.authorizationService.GetAll();
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
+
+        [HttpGet("auths/alltypes"), Authorize(Roles = "Citizen")]
+        public IActionResult GetAllAuthorizationTypes()
+        {
+            var result = this.authorizationService.GetAllAuthTypes();
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
+
+        [HttpGet("auths/{id}"), Authorize(Roles = "Citizen")]
+        public IActionResult GetAuthorizationbyID(int id)
+        {
+            var result = this.authorizationService.GetbyID(id);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
+
+        [HttpPost("auths/create"), Authorize(Roles = "Citizen")]
+        public IActionResult AddNewAuthorizationType(AuthorizationDTO auth)
+        {
+            var result = this.authorizationService.Add(auth);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
+        #endregion
+
         
+
+
 
 
 

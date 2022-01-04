@@ -4,6 +4,7 @@ using Business.Utilities.AuthorizationConstants;
 using Business.Utilities.Hash;
 using Business.Utilities.Results;
 using Entities;
+using Entities.DTOs;
 using System;
 
 namespace Business.Conrete
@@ -28,8 +29,16 @@ namespace Business.Conrete
                 this.tokenHandler.CreateAccessToken(citizen), "Token başarıyla oluşturuldu.");
         }
 
-        public IDataResult<Citizen> RegisterCitizen(CitizenRegisterDTO citizenRegister)
+        public IDataResult<Token> CreateToken(StaffAuthDTO staff)
         {
+            return new DataResults.SuccessfulDataResult<Token>(
+                this.tokenHandler.CreateAccessToken(staff.StaffID, staff.AuthorizationName));
+        }
+
+        public IDataResult<Citizen> RegisterCitizen(RegisterDTO citizenRegister)
+        {
+            //Validation işlemleri yapılacak.
+
             Citizen citizen = new Citizen
             {
                 BirthDate = citizenRegister.BirthDate,
@@ -58,10 +67,19 @@ namespace Business.Conrete
             var result2 = this.citizenService.AddAuthentication(citizenAuth);
             //Burada citizenAuthentication tablosundaki citizen id'nin olup olmadığı kontrol edilebilir.
 
+            if (result.Success)
+                result.InfoMessage = Messages.CitizenRegisterSuccess;
+            else
+                result.InfoMessage = Messages.CitizenRegisterFail;
+
             return result;
         }
+        public IDataResult<Staff> RegisterStaff(RegisterDTO newStaff)
+        {
 
-        public IDataResult<Citizen> LoginCitizen(CitizenLoginDTO citizenLogin)
+        }
+
+        public IDataResult<Citizen> LoginCitizen(LoginDTO citizenLogin)
         {
             var citizenResult = citizenService.GetbyMail(citizenLogin.Email);
             if (!citizenResult.Success)
@@ -81,15 +99,21 @@ namespace Business.Conrete
             return new DataResults.SuccessfulDataResult<Citizen>(citizen, Messages.PasswordCorrect);
         }
 
-        public IDataResult<Staff> LoginStaff()
+        public IDataResult<StaffAuthDTO> LoginStaff(LoginDTO staffLogin)
         {
-            throw new NotImplementedException();
+            var staffResult = this.staffService.GetAuthenticationbyEmail(staffLogin.Email);
+            if (!staffResult.Success)
+                return new DataResults.ErrorDataResult<StaffAuthDTO>(staffResult.InfoMessage);
+
+            StaffAuthDTO staffAuth = staffResult.Data;
+
+            bool verification = Encryption.VerifyPasswordHash(staffLogin.Password, staffAuth.PasswordHash, staffAuth.PasswordSalt);
+
+            if (!verification)
+                return new DataResults.ErrorDataResult<StaffAuthDTO>(Messages.PasswordIncorrect);
+
+            return new DataResults.SuccessfulDataResult<StaffAuthDTO>(staffAuth, Messages.PasswordCorrect);
         }
 
-
-        public IDataResult<Staff> RegisterStaff()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

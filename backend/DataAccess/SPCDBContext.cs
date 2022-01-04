@@ -20,6 +20,7 @@ namespace DataAccess
                 .HasKey(nameof(Assigment.AssigneeID), nameof(Assigment.ComplaintID));
             modelBuilder.Entity<ComplaintDepartment>()
                 .HasKey(nameof(ComplaintDepartment.ComplaintID), nameof(ComplaintDepartment.DepartmentID));
+            modelBuilder.Entity<Citizen>().HasIndex(u => u.Email).IsUnique(true);
         }
 
         public DbSet<Assigment> Assigments { get; set; }
