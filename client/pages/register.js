@@ -50,7 +50,7 @@ const Register = () => {
       password.length > 0 &&
       confirmPassword.length > 0
     ) {
-      const data = await fetch(
+      const response = await fetch(
         "https://localhost:44336/api/auth/citizens/register",
         {
           method: "POST",
@@ -69,6 +69,10 @@ const Register = () => {
           }),
         }
       );
+      const data = response.json();
+      if (data.status) {
+        router.push("/login");
+      }
     } else if (
       firstName.length > 0 &&
       lastName.length > 0 &&
