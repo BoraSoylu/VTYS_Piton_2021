@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { DeleteIcon } from "@chakra-ui/icons";
-
+import Header from "../components/Header/Header";
 
 const Dashboard = () => {
   const [selectedImage, setSelectedImage] = useState("");
+  const [show, setShow] = useState(false);
 
   return (
     <div>
+      <Header />
       <div
         style={{
           display: "flex",
@@ -17,7 +19,6 @@ const Dashboard = () => {
           marginTop: "40px",
           width: "50%",
         }}>
-        
         <input
           type="file"
           name="myImage"

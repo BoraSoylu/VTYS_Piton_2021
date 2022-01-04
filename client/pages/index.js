@@ -67,7 +67,7 @@ export default function Home() {
           rightIcon={<ArrowForwardIcon />}
           colorScheme="telegram"
           variant="outline"
-          onClick={() => console.log("hello")}>
+          onClick={() => router.push("/login")}>
           Giriş Yap
         </Button>
         <Button
