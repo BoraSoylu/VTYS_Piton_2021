@@ -6,7 +6,9 @@ import Header from "../components/Header/Header";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { ArrowForwardIcon, DeleteIcon } from "@chakra-ui/icons";
 
+
 export default function Home() {
+
   const router = useRouter();
   return (
     <div>
@@ -46,10 +48,10 @@ export default function Home() {
           display: "flex",
           justifyContent: "center",
           marginTop: "50px",
-          gap: "80px",
+          gap: "100px",
         }}>
         <img
-          style={{ width: "100px", height: "100px" }}
+          style={{ width: "100px", height: "100px", marginLeft: "10px" }}
           src="police-badge.png"
         />
         <img style={{ width: "100px", height: "100px" }} src="police-car.png" />
@@ -68,7 +70,14 @@ export default function Home() {
           colorScheme="telegram"
           variant="outline"
           onClick={() => router.push("/login")}>
-          Giriş Yap
+          Vatandaş Girişi
+        </Button>
+        <Button
+          rightIcon={<ArrowForwardIcon />}
+          colorScheme="telegram"
+          variant="outline"
+          onClick={() => router.push("/login-stuff")}>
+          Personel Girişi
         </Button>
         <Button
           rightIcon={<ArrowForwardIcon />}

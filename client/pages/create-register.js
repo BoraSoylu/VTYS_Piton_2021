@@ -3,9 +3,10 @@
 import Header from "../components/Header/Header";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useToast } from "@chakra-ui/react";
+import { Radio, RadioGroup } from "@chakra-ui/react";
 
 import {
   InputGroup,
@@ -20,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
-const Register = () => {
+const CreateRegister = () => {
   const toast = useToast();
   const router = useRouter();
   const [value, setValue] = useState("N");
@@ -33,7 +34,25 @@ const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const { loginWithRedirect } = useAuth0();
+  const [personalType, setPersonalType] = useState([
+    {
+      authorizationID: 1,
+      authorizationName: "AuthorizationName1",
+      authorizations: [true, true, true, true],
+    },
+    {
+      authorizationID: 2,
+      authorizationName: "AuthorizationName2",
+      authorizations: [true, true, false, false],
+    },
+    {
+      authorizationID: 3,
+      authorizationName: "admin",
+      authorizations: [true, true, true, true],
+    },
+  ]);
+
+  useEffect(() => {}, []);
 
   const submitHandler = async () => {
     console.log(
@@ -52,7 +71,7 @@ const Register = () => {
       confirmPassword.length > 0
     ) {
       const response = await fetch(
-        "https://localhost:44336/api/auth/citizens/register",
+        "https://localhost:44336/api/auth/staffs/register",
         {
           method: "POST",
           headers: {
@@ -67,6 +86,7 @@ const Register = () => {
             Gender: value,
             Password: password,
             BirthDate: birthDate,
+            personalType,
           }),
         }
       );
@@ -198,6 +218,13 @@ const Register = () => {
           value={birthDate}
           onChange={(e) => setBirthDate(e.target.value)}
         />
+        <RadioGroup onChange={setPersonalType} value={personalType}>
+          <Stack direction="row">
+            {personalType.map(({ authorizationName, authorizationID }) => (
+              <Radio value={authorizationID}>{authorizationName}</Radio>
+            ))}
+          </Stack>
+        </RadioGroup>
 
         <Button
           colorScheme="blue"
@@ -206,17 +233,9 @@ const Register = () => {
           style={{ width: "50%", margin: "auto" }}>
           Kayıt Ol
         </Button>
-        <Button
-          colorScheme="teal"
-          variant="solid"
-          style={{ padding: "10px", width: "50%", margin: "auto" }}
-          onClick={() => loginWithRedirect()}>
-          <img style={{ widht: "32px", height: "32px" }} src="google.png" />{" "}
-          Gmail ile kayıt ol
-        </Button>
       </div>
     </>
   );
 };
 
-export default Register;
+export default CreateRegister;

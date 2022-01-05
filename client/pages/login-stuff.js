@@ -7,43 +7,39 @@ import {
   InputRightElement,
   IconButton,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "../components/Header/Header";
 import { useRouter } from "next/router";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/react";
 
-const Login = () => {
+const LoginStuff = () => {
   const [email, setEmail] = useState("");
   const toast = useToast();
 
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+
   const handleClick = () => setShow(!show);
   const router = useRouter();
+
   const submitHandler = async () => {
     if (email.length > 0 && password.length > 0) {
-      // const response = await fetch(
-      //   "https://localhost:44336/api/auth/citizens/login",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       Accept: "application/json",
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       Email: email,
-      //       Password: password,
-      //     }),
-      //   }
-      // );
-      // const data = await response.json();
-      // if (data.success) router.push("/dashboard");
-      // localStorage.setItem("token", data?.data.accessToken);
-      localStorage.setItem(
-        "token",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEwMDgiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDaXRpemVuIiwibmJmIjoxNjQxMzI3ODk5LCJleHAiOjE2NDE5MzI2OTl9.vL71jB0hXJMtinqL7f8Rl6cQgs8Zl_kQUGQMJZmZQT0"
-      );
+      //   const response = await fetch(
+      //     "https://localhost:44336/api/auth/citizens/login",
+      //     {
+      //       method: "POST",
+      //       headers: {
+      //         Accept: "application/json",
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify({
+      //         Email: email,
+      //         Password: password,
+      //       }),
+      //     }
+      //   );
+      //   const data = await response.json();
       localStorage.setItem("isAuth", true);
       router.push("/dashboard");
     } else {
@@ -84,7 +80,7 @@ const Login = () => {
             marginBottom: "20px",
             fontSize: "2rem",
           }}>
-          Vatandaş Girişi
+          Personel Girişi
         </h2>
         <h1
           style={{
@@ -127,4 +123,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginStuff;
