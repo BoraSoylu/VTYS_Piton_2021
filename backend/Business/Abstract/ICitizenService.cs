@@ -16,6 +16,6 @@ namespace Business.Abstract
         IDataResult<Citizen> Add(Citizen citizen);
         IDataResult<CitizenAuthentication> AddAuthentication(CitizenAuthentication citizenAuth);
 
-        IDataResult<Complaint> CreateComplaint(ComplaintCreateDTO complaint);
+        IDataResult<Complaint> CreateComplaint(ComplaintCreateDTO complaint, int id);
     }
 }

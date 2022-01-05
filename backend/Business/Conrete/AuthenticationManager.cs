@@ -74,9 +74,32 @@ namespace Business.Conrete
 
             return result;
         }
-        public IDataResult<Staff> RegisterStaff(RegisterDTO newStaff)
+        public IDataResult<Staff> RegisterStaff(StaffRegisterDTO newStaff)
         {
+            Staff staff = new Staff
+            {
+                AuthorizationID = newStaff.AuthorizationID,
+                BirthDate = newStaff.BirthDate,
+                CreationDate = DateTime.Now,
+                DepartmentID = 1,
+                Email = newStaff.Email,
+                FirstName = newStaff.FirstName,
+                Gender = newStaff.Gender,
+                LastName = newStaff.LastName,
+                PhoneNumber = newStaff.PhoneNumber,
+            };
 
+            byte[] passwordHash, passwordSalt;
+            Encryption.CreatePasswordHash(newStaff.Password, out passwordHash, out passwordSalt);
+
+            StaffAuthentication staffAuth = new StaffAuthentication
+            {
+                PasswordCreationDate = DateTime.Now,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt
+            };
+
+            return this.staffService.Add(staff, staffAuth);
         }
 
         public IDataResult<Citizen> LoginCitizen(LoginDTO citizenLogin)

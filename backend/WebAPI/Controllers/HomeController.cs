@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -18,13 +19,18 @@ namespace WebAPI.Controllers
     {
         private readonly ICitizenService citizenService;
         private readonly Business.Abstract.IAuthorizationService authorizationService;
-        
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HomeController(ICitizenService service, Business.Abstract.IAuthorizationService authorizationService)
+        public HomeController(ICitizenService service, Business.Abstract.IAuthorizationService authorizationService
+            , IHttpContextAccessor context)
         {
             citizenService = service;
             this.authorizationService = authorizationService;
+            this._httpContextAccessor = context;
         }
+
+      
+
 
         //Prepared methods
         #region Authorizations
@@ -69,6 +75,22 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+
+        [HttpPost("complaints/create"), Authorize(Roles = "Citizen")]
+        public IActionResult CreateComplaint(ComplaintCreateDTO dto)
+        {
+            var id = string.Empty;
+            if (_httpContextAccessor.HttpContext != null)
+            {
+                id = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            }
+            var result = this.citizenService.CreateComplaint(dto, int.Parse(id));
+
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
         
 
 
@@ -76,12 +98,6 @@ namespace WebAPI.Controllers
 
 
         //end-
-
-        [HttpPost("complaints/create"), Authorize(Roles = "Citizen")]
-        public IActionResult CreateComplaint(ComplaintCreateDTO dto)
-        {
-            return Ok(this.citizenService.CreateComplaint(dto));
-        }
 
 
 

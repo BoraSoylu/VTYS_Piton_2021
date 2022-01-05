@@ -26,5 +26,6 @@ namespace Business.Utilities.AuthorizationConstants
         public static string StaffGetSuccess = "Sucessed staff retrival";
         public static string StaffAuthenticationCrash = "Staff authentication info crash";
         public static string StaffAuthenticationSuccess = "Staff authentication info success";
+        public static string StaffRegisterSuccess = "Staff register success";
     }
 }

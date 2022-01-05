@@ -12,7 +12,7 @@ namespace Business.Abstract
         IDataResult<Token> CreateToken(StaffAuthDTO staff);
         IDataResult<Citizen> RegisterCitizen(RegisterDTO citizenRegister);
         IDataResult<Citizen> LoginCitizen(LoginDTO citizenLogin);
-        IDataResult<Staff> RegisterStaff(RegisterDTO newStaff);
+        IDataResult<Staff> RegisterStaff(StaffRegisterDTO newStaff);
         IDataResult<StaffAuthDTO> LoginStaff(LoginDTO staffLogin);
 
 

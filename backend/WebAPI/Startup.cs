@@ -57,6 +57,9 @@ namespace WebAPI
             services.AddScoped<IAuthorizationService, AuthorizationManager>();
             services.AddScoped<IAuthorizationDAL, AuthorizationDAL>();
             services.AddScoped<Business.Utilities.TokenHandler>();
+            services.AddScoped<IStaffAuthenticationDAL, StaffAuthenticationDAL>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
             services.AddHttpContextAccessor();
@@ -84,10 +87,9 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();

@@ -6,7 +6,7 @@ namespace Entities
 {
     public class StaffAuthentication : IEntity
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         [ForeignKey("Staff")]
         public int StaffID { get; set; }
         [Required]

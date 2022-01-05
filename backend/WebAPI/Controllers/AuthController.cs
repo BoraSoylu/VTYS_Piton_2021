@@ -34,10 +34,14 @@ namespace WebAPI.Controllers
             else
                 return BadRequest(result);
         }
-        [HttpPost("staffs/register"), Authorize(Roles = "admin")]
-        public IActionResult StaffRegister(RegisterDTO dto)
+        [HttpPost("staffs/register"), Authorize(Roles = "Admin")]
+        public IActionResult StaffRegister(StaffRegisterDTO dto)
         {
-            return Ok();
+            var result = authenticationService.RegisterStaff(dto);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
 
 

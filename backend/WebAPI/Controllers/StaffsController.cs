@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             this.staffService = staffService;
         }
 
-        [HttpGet("alldata"), Authorize(Roles = "Citizen")]
+        [HttpGet("alldata"), Authorize(Roles = "Admin")]
         public IActionResult GetAllStaffs()
         {
             var result = this.staffService.GetAll();

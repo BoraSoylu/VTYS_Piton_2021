@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using Business.Abstract;
 using Business.Utilities.AuthorizationConstants;
 using Business.Utilities.Results;
 using DataAccess;
 using Entities;
 using Entities.DTOs;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
 namespace Business.Conrete
@@ -39,11 +39,9 @@ namespace Business.Conrete
             return new DataResults.SuccessfulDataResult<CitizenAuthentication>(newCitizenAuth);
         }
 
-        public IDataResult<Complaint> CreateComplaint(ComplaintCreateDTO complaint)
+        public IDataResult<Complaint> CreateComplaint(ComplaintCreateDTO complaint, int id)
         {
-            int id = int.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(
-                ClaimTypes.NameIdentifier).ToString());
-
+            
             return this.complaintService.CreateComplaint(complaint, id);
         }
 
