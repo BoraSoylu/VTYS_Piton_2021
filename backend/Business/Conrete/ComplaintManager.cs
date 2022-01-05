@@ -5,6 +5,7 @@ using DataAccess;
 using Entities;
 using Entities.DTOs;
 using System;
+using System.Collections.Generic;
 
 namespace Business.Conrete
 {
@@ -45,6 +46,21 @@ namespace Business.Conrete
                 return new DataResults.ErrorDataResult<Complaint>("İhbar başarısız.");
             else
                 return new DataResults.SuccessfulDataResult<Complaint>(compla, "İhbar başarılı.");
+        }
+
+        public IDataResult<List<Complaint>> GetAll()
+        {
+            var result = this.complaintDAL.GetAll(null);
+
+            if (result == null)
+                return new DataResults.ErrorDataResult<List<Complaint>>("Could not retrive complaints.");
+
+            return new DataResults.SuccessfulDataResult<List<Complaint>>(result, "Success.");
+        }
+
+        public IDataResult<List<Complaint>> GetComplaintsByCitizenID(int id)
+        {
+           return new DataResults.SuccessfulDataResult<List<Complaint>>(this.complaintDAL.GetComplaintsByCitizenID(id), "Success.");
         }
     }
 }

@@ -20,13 +20,14 @@ namespace WebAPI.Controllers
         private readonly ICitizenService citizenService;
         private readonly Business.Abstract.IAuthorizationService authorizationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        private readonly IComplaintService complaintService;
         public HomeController(ICitizenService service, Business.Abstract.IAuthorizationService authorizationService
-            , IHttpContextAccessor context)
+            , IHttpContextAccessor context, IComplaintService complaintService)
         {
             citizenService = service;
             this.authorizationService = authorizationService;
             this._httpContextAccessor = context;
+            this.complaintService = complaintService;
         }
 
       
@@ -92,12 +93,32 @@ namespace WebAPI.Controllers
                 return BadRequest(result);
         }
         
+        [HttpGet("complaints/alldata"), Authorize(Roles = "Admin")]
+        public IActionResult GetAllComplaints()
+        {
+            var result = complaintService.GetAll();
+
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
+
+        [HttpGet("complaints/mycomplaints"), Authorize(Roles = "Citizen")]
+        public IActionResult GetMyComplaints()
+        {
+
+            int myid = (int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)));
+
+            var result = complaintService.GetComplaintsByCitizenID(myid);
+
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
 
 
-
-
-
-        //end-
 
 
 
